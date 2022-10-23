@@ -154,8 +154,14 @@ public:
   }
   TDynamicVector operator-(const TDynamicVector& v)
   {
-
-      return *this + (-1) * TDynamicVector(v);
+      if (sz != v.sz)
+          throw length_error("different length");
+      TDynamicVector res(sz);
+      for (int i = 0; i < sz; i++) {
+          res[i] = pMem[i] - v.pMem[i];
+      }
+      return res;
+     // return *this + (-1) * TDynamicVector(v);
      // return operator+(TDynamicVector(v) * (-1));
   }
   T operator*(const TDynamicVector& v)
